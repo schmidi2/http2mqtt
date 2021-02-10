@@ -42,6 +42,7 @@ function controller(req, res, next) {
   let message = req.body || null
   if (typeof message === 'object') {
       message = JSON.stringify(message)
+      let oneval; if(oneval = message.match(/^\{"(.*?)":""\}$/) ) message = oneval[1];
   }
   mqttClient.publish(topic, message, () => {
     console.log(new Date(), `published: ${topic}`)
